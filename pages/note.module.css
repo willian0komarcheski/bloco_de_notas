@@ -1,0 +1,16 @@
+/* Note.module.css */
+.note {
+    width: 100%;
+    max-width: 200px;
+    min-height: 100px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto; /* Adiciona uma barra de rolagem se o texto for muito longo */
+}
