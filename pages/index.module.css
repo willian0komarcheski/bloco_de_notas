@@ -1,5 +1,51 @@
+/* index.module.css */
+.cor {
+    background-color: rgba(0, 0, 0, 0.837);
+}
+
+/* index.module.css */
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows:min-content;
+    gap: 10px;
+}
+    
+  .note h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .note p {
+    margin-bottom: 0;
+    color: #333;
+  }
+  
+  .createNote {
+    width: 8%;
+    background-color: #3b82f6;
+    color: #fff;
+    margin-top: 5px;
+    padding: 2px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .createNote:hover {
+    background-color: #2563eb;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .createNote:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  }
+  
+  .arrumar {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
 }

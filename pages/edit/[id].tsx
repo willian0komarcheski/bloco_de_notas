@@ -1,35 +1,47 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+// EditNote.js
+
+import '../../src/app/globals.css';
 import 'tailwindcss/tailwind.css';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import styles from './EditNote.module.css';
 
 const EditNote = () => {
-  const [note, setNote] = useState('')
-  const router = useRouter()
-  const { id } = router.query
+  const [note, setNote] = useState('');
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     // Carregar nota do localStorage
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]')
-    setNote(notes[id as string] || '')
-  }, [id])
+    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    setNote(notes[id as string] || '');
+  }, [id]);
 
   const saveNote = () => {
     // Salvar nota editada no localStorage
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]')
-    notes[id as string] = note
-    localStorage.setItem('notes', JSON.stringify(notes))
+    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    notes[id as string] = note;
+    localStorage.setItem('notes', JSON.stringify(notes));
 
     // Redirecionar para a página inicial
-    router.push('/')
-  }
+    router.push('/');
+  };
 
   return (
-    <div className="p-10">
-      <h1 className="text-2xl font-bold mb-4">Editar nota</h1>
-      <textarea className="w-full h-60 p-2 border rounded mb-4" value={note} onChange={e => setNote(e.target.value)} />
-      <button className="w-full py-2 bg-blue-500 text-white rounded" onClick={saveNote}>Salvar</button>
+    <div className={styles.container}>
+      <div className={styles.form}>
+        <h1 className={styles.title}>Editar nota</h1>
+        <textarea
+          className={styles.textarea}
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
+        <button className={styles.button} onClick={saveNote}>
+          Salvar
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditNote
+export default EditNote;
