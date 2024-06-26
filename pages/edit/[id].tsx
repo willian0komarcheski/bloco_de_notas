@@ -1,8 +1,6 @@
-// EditNote.tsx
-
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styles from './edit/EditNote.module.css';
+import styles from './EditNote.module.css';
 
 const EditNote = () => {
   const [note, setNote] = useState('');
@@ -15,7 +13,7 @@ const EditNote = () => {
 
   const fetchNote = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/notas/${id}`); // Substitua pela sua URL da API
+      const response = await fetch(`http://localhost:3001/notas/${id}`);
       if (!response.ok) {
         throw new Error('Erro ao buscar nota');
       }
