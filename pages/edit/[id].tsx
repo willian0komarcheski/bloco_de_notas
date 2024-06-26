@@ -1,10 +1,8 @@
-// EditNote.js
+// EditNote.tsx
 
-import '../../src/app/globals.css';
-import 'tailwindcss/tailwind.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styles from './EditNote.module.css';
+import styles from './edit/EditNote.module.css';
 
 const EditNote = () => {
   const [note, setNote] = useState('');
@@ -12,19 +10,38 @@ const EditNote = () => {
   const { id } = router.query;
 
   useEffect(() => {
-    // Carregar nota do localStorage
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-    setNote(notes[id as string] || '');
+    fetchNote();
   }, [id]);
 
-  const saveNote = () => {
-    // Salvar nota editada no localStorage
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-    notes[id as string] = note;
-    localStorage.setItem('notes', JSON.stringify(notes));
+  const fetchNote = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/notas/${id}`); // Substitua pela sua URL da API
+      if (!response.ok) {
+        throw new Error('Erro ao buscar nota');
+      }
+      const data = await response.json();
+      setNote(data.content);
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
 
-    // Redirecionar para a página inicial
-    router.push('/');
+  const saveNote = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/notas/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: note }),
+      });
+      if (!response.ok) {
+        throw new Error('Erro ao atualizar nota');
+      }
+      router.push('/');
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   };
 
   return (

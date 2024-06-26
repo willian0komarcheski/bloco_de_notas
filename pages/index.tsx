@@ -2,8 +2,6 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import '../src/app/globals.css';
-import 'tailwindcss/tailwind.css';
 import Note from './note';
 import styles from './index.module.css';
 
@@ -11,10 +9,21 @@ const Index: React.FC = () => {
   const [notes, setNotes] = useState<string[]>([]);
 
   useEffect(() => {
-    // Carregar notas do localStorage
-    const savedNotes = JSON.parse(localStorage.getItem('notes') || '[]') as string[];
-    setNotes(savedNotes);
+    fetchNotes();
   }, []);
+
+  const fetchNotes = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/notas'); // Substitua pela sua URL da API
+      if (!response.ok) {
+        throw new Error('Erro ao buscar notas');
+      }
+      const data = await response.json();
+      setNotes(data.map((note: any) => note.content));
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
 
   return (
     <div className="p-10 flex flex-col items-center">
